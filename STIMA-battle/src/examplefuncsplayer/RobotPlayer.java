@@ -110,6 +110,7 @@ public class RobotPlayer {
     public static void runTower(RobotController rc) throws GameActionException{
         // Pick a direction to build in.
         Direction dir = directions[rng.nextInt(directions.length)];
+    
         MapLocation nextLoc = rc.getLocation().add(dir);
         // Pick a random robot type to build.
         int robotType = rng.nextInt(3);
