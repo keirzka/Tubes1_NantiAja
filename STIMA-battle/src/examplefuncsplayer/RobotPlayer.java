@@ -180,8 +180,13 @@ public class RobotPlayer {
         }
 
         // Move and attack randomly if no objective.
-        Direction dir = directions[rng.nextInt(directions.length)];
+        Direction dir = directions[0];
         MapLocation nextLoc = rc.getLocation().add(dir);
+        if (rc.canMove(dir)){
+            rc.move(dir);
+        }
+
+        dir = directions[rng.nextInt(directions.length)];
         if (rc.canMove(dir)){
             rc.move(dir);
         }
@@ -200,8 +205,13 @@ public class RobotPlayer {
      */
     public static void runMopper(RobotController rc) throws GameActionException{
         // Move and attack randomly.
-        Direction dir = directions[rng.nextInt(directions.length)];
+        Direction dir = directions[0];
         MapLocation nextLoc = rc.getLocation().add(dir);
+        if (rc.canMove(dir)){
+            rc.move(dir);
+        }
+
+        dir = directions[rng.nextInt(directions.length)];
         if (rc.canMove(dir)){
             rc.move(dir);
         }
