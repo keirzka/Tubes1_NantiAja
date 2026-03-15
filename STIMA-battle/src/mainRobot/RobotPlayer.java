@@ -133,12 +133,6 @@ public class RobotPlayer {
             robotMadeCount++;
         }
 
-        // Read incoming messages
-        Message[] messages = rc.readMessages(-1);
-        for (Message m : messages) {
-            System.out.println("Tower received message: '#" + m.getSenderID() + " " + m.getBytes());
-        }
-
         // TODO: can we attack other bots?
         RobotInfo[] nearbyEnemy = rc.senseNearbyRobots(-1, rc.getTeam().opponent());
 
@@ -176,16 +170,16 @@ public class RobotPlayer {
         // jadiin ruin ato upgrade kalo bisa
         for (Direction dir : Direction.values()) {
             MapLocation adjacent = rc.getLocation().add(dir);
-                if (rc.canCompleteTowerPattern(UnitType.LEVEL_ONE_PAINT_TOWER, adjacent)) {
-                    rc.completeTowerPattern(UnitType.LEVEL_ONE_PAINT_TOWER, adjacent);
-                }
-                else if (rc.canCompleteTowerPattern(UnitType.LEVEL_ONE_MONEY_TOWER, adjacent)) {
-                    rc.completeTowerPattern(UnitType.LEVEL_ONE_MONEY_TOWER, adjacent);
-                }
-                else if (rc.canUpgradeTower(adjacent)) {
-                    rc.upgradeTower(adjacent);
-                }
+            if (rc.canCompleteTowerPattern(UnitType.LEVEL_ONE_PAINT_TOWER, adjacent)) {
+                rc.completeTowerPattern(UnitType.LEVEL_ONE_PAINT_TOWER, adjacent);
             }
+            else if (rc.canCompleteTowerPattern(UnitType.LEVEL_ONE_MONEY_TOWER, adjacent)) {
+                rc.completeTowerPattern(UnitType.LEVEL_ONE_MONEY_TOWER, adjacent);
+            }
+            else if (rc.canUpgradeTower(adjacent)) {
+                rc.upgradeTower(adjacent);
+            }
+        }
         
         // cari tower musuh
         RobotInfo[] nearbyEnemy = rc.senseNearbyRobots(-1, rc.getTeam().opponent());
@@ -289,12 +283,13 @@ public class RobotPlayer {
             
         }
         else {
+
             if (rc.isActionReady()) {
                 Direction dir = directions[rng.nextInt(directions.length)];
                 if (rc.canMove(dir)){
                     rc.move(dir);
                 }   
-            }           
+            }      
         }
 
         // warnain terus sambil jalan
